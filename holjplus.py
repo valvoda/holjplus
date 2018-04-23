@@ -6,6 +6,9 @@ import re
 class Holjplus:
 
     def main(self):
+        """
+        This needs a cleanup.
+        """
         ex = extract.Extract()
         sc = scrape.Scrape()
         fm = format.Format()
