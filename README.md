@@ -1,8 +1,8 @@
 # HOLJ Plus
 
-This project extracts UK House of Lords judgements from 1996 to 2009 from: https://publications.parliament.uk/pa/ld/ldjudgmt.htm
+This project extracts UK House of Lords judgements from 1996 to 2009: https://publications.parliament.uk/pa/ld/ldjudgmt.htm
 
-The HTML files are scraped for the text of the case and cleaned up for purposes of annotating the majority judgement.
+HTML files are scraped for the text of the cases and cleaned up for the purposes of annotating the majority judgement.
 
 ## Getting Started
 
@@ -19,16 +19,12 @@ To run the build in tests, run format.py, extract.py and scrape.py
 
 ## Contributing
 
-[scrape.py](https://realpython.com/python-web-scraping-practical-introduction/) - functions adapted from
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+[scrape.py](https://realpython.com/python-web-scraping-practical-introduction/) - functions adapted from realpython.com tutorial
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Josef Valvoda**
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License
