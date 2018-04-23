@@ -1,7 +1,7 @@
+import re
 import format
 import extract
 import scrape
-import re
 
 class Holjplus:
 

@@ -10,37 +10,52 @@ import re
 
 class Format:
 
-    # NOTE this needs to be simplified a lot!!!
-    def prettify(self, case):
+    def pretty_case(self, case):
         """
-        cleans up the extracted html text to adhere to the HOLJ formating
+        Cleans formating of pages in a case
         """
-        clean1 = []
-        for c in case:
-            c = c.replace("(back to preceding text)", "") #remove html navigation text
-            c = c.replace("  ", "") #remove double spaces
-            c = c.split("\n") #remove breaklines
-            clean1 += [i for i in c if i != ""]
+        clean = []
+        for page in case:
+            page = page.split("\n") # split on paragraphs
+            for para in page:
+                if para != "": # remove empty paragraphs
+                    para = para.replace(" . . .", "")
+                    clean += self.pretty_sentence(para)
 
-        clean2 = []
-        for c in clean1:
-            sent = nl.sent_tokenize(c)
-            for s in sent:
-                s = s.lstrip()
-                if re.search("\w", s) != None:
-                    clean2.append(s)
+        clean = self.pretty_head(clean)
 
-        clean3 = []
+        return clean
+
+    def pretty_head(self, sentences):
+        """
+        Removes the headnote at the begining of a case
+        """
+        clean = []
         start = False
-        for c in clean2:
-            judge = c.split(" ")[0]
-            if judge == "LORD" or judge == "LADY" or judge == "BARONESS": #NOTE might need more options for lady hale
-                start = True
-                clean3.append("\n-------------NEW JUDGE---------------")
-            if start == True:
-                clean3.append(c)
+        for sent in sentences:
+            judge = sent.split(" ")[0] #first word of a sentence
 
-        return clean3
+            if judge == "LORD" or judge == "LADY" or judge == "BARONESS": #NOTE might need more options for lady hale?
+                start = True # flag to indicate start of the body proper
+                clean.append("\n-------------NEW JUDGE---------------") # marking of a new judge
+
+            elif start == True and sent != "": # remove empty sentences
+                clean.append(sent)
+
+        return clean
+
+    def pretty_sentence(self, paragraph):
+        """
+        Cleans formating of sentences in a paragraph
+        """
+        clean = []
+        sentences = nl.sent_tokenize(paragraph)
+        for sent in sentences:
+            sent = sent.lstrip() # removes chars from begining of a sentence
+            sent = sent.replace("(back to preceding text)", "") # removes HTMl navigator link
+            clean.append(sent)
+
+        return clean
 
     def save(self, case, name, folder):
         """
@@ -60,10 +75,10 @@ if __name__ == "__main__":
 
     case = []
     ex.extract_case("https://publications.parliament.uk/pa/ld199697/ldjudgmt/jd961121/smith01.htm", case)
-    clean = fm.prettify(case)
-    fm.save(clean, "1")
+    clean = fm.pretty_case(case)
+    fm.save(clean, "1", "test")
 
-    case = []
-    ex.extract_case("https://publications.parliament.uk/pa/ld200809/ldjudgmt/jd090617/assom.htm", case)
-    clean = fm.prettify(case)
-    fm.save(clean, "2")
+    # case = []
+    # ex.extract_case("https://publications.parliament.uk/pa/ld200809/ldjudgmt/jd090617/assom.htm", case)
+    # clean = fm.prettify(case)
+    # fm.save(clean, "2")

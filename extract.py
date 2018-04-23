@@ -121,7 +121,7 @@ if __name__ == "__main__":
     print("Working")
 
     # Testing case extraction
-    print("Visual inspection, check for duplicates:") #NOTE automate this
+    print("Visual inspection, check for duplicates:") #NOTE better test required
     all = []
     ex.extract_case("https://publications.parliament.uk/pa/ld199697/ldjudgmt/jd961121/smith01.htm", all)
     for a in all:
