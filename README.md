@@ -27,4 +27,4 @@ To run the build in tests, run format.py, extract.py and scrape.py
 
 ## License
 
-This project is licensed under the MIT License
+This project is licensed under the MIT License - [LICENSE.md](LICENSE.md)
