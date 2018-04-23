@@ -13,7 +13,7 @@ class Format:
     # NOTE this needs to be simplified a lot!!!
     def prettify(self, case):
         """
-        clean up the extracted html text to adhere to the HOLJ formating
+        cleans up the extracted html text to adhere to the HOLJ formating
         """
         clean1 = []
         for c in case:

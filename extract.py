@@ -31,7 +31,7 @@ class Extract:
         links = [link for link in links if re.match(".+ld\d{6}.+",link)] #find hol links using regex
 
         hol = []
-        for link in links: # normalize the links
+        for link in links: # normalize the links (some start with .. others with /pa)
             if link[:2] == "..":
                 hol.append(web + "/pa" + link[2:])
             else:
