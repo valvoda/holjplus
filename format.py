@@ -35,9 +35,10 @@ class Format:
         for sent in sentences:
             judge = sent.split(" ")[0] #first word of a sentence
 
-            if judge == "LORD" or judge == "LADY" or judge == "BARONESS": #NOTE might need more options for lady hale?
+            if judge == "LORD" or judge == "LADY" or judge == "BARONESS": #NOTE might need more options for Lady Hale?
                 start = True # flag to indicate start of the body proper
                 clean.append("\n-------------NEW JUDGE---------------") # marking of a new judge
+                clean.append(sent)
 
             elif start == True and sent != "": # remove empty sentences
                 clean.append(sent)
@@ -60,25 +61,32 @@ class Format:
     def save(self, case, name, folder):
         """
         save the case as name.txt in /corpus
-        write it line by line
         """
-        file = open("../corpus/" + folder + "/" + name + ".txt", "w")
+        try:
+            fname = "../corpus/" + folder + "/" + name + ".txt"
+            file = open(fname, "w")
+            self.write(case, file)
+        except IOError:
+            print("Courld not find the file: ", fname)
 
-        for line in case:
-            file.write(line + "\n")
-        file.close()
-
+    def write(self, case, file):
+        """
+        write the case line by line in file
+        """
+        [file.write(line + "\n") for line in case]
 
 if __name__ == "__main__":
     fm = Format()
     ex = extract.Extract()
 
+    # Should write a cleanup case in the test folder
     case = []
     ex.extract_case("https://publications.parliament.uk/pa/ld199697/ldjudgmt/jd961121/smith01.htm", case)
     clean = fm.pretty_case(case)
     fm.save(clean, "1", "test")
 
-    # case = []
-    # ex.extract_case("https://publications.parliament.uk/pa/ld200809/ldjudgmt/jd090617/assom.htm", case)
-    # clean = fm.prettify(case)
-    # fm.save(clean, "2")
+    # Should catch error in file name and print it
+    case = []
+    ex.extract_case("https://publications.parliament.uk/pa/ld200809/ldjudgmt/jd090617/assom.htm", case)
+    clean = fm.pretty_case(case)
+    fm.save(clean, "2", "test2")
