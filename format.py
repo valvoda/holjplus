@@ -58,21 +58,22 @@ class Format:
 
         return clean
 
-    def save(self, case, name, folder):
+    def save(self, case, name, folder, link):
         """
         save the case as name.txt in /corpus
         """
         try:
             fname = "../corpus/" + folder + "/" + name + ".txt"
             file = open(fname, "w")
-            self.write(case, file)
+            self.write(case, file, link)
         except IOError:
             print("Courld not find the file: ", fname)
 
-    def write(self, case, file):
+    def write(self, case, file, link):
         """
         write the case line by line in file
         """
+        file.write(link + "\n")
         [file.write(line + "\n") for line in case]
 
 if __name__ == "__main__":

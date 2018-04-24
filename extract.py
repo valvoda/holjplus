@@ -55,10 +55,38 @@ class Extract:
         if end == None:
             end = html.find("a", string="Continue")
 
-        if end != None:
+        if end == None:
+            end = html.find("img", alt="continue")
+            if end != None:
+                end = "continue"
+        elif end != None:
             end = end.getText()
 
         text = html.find_all('tbody')
+        text = [t.text for t in text]
+
+        text = text[1:-1] # removes the webpage border around the body of the case
+
+        return text, end
+
+    def extract_body_0607(self, htmlfile):
+        """
+        Extracts the body of a judgement in cases from 2006 to 2007
+        """
+        if htmlfile != None: #Check if valid file
+            html = bs(htmlfile, "html5lib") # NOTE the standard html.parser does not work here!!!
+        else:
+            print("ERROR: could not get html!")
+            return None, None
+
+        end = html.find("a", string="continue")
+        if end == None:
+            end = html.find("a", string="Continue")
+
+        if end != None:
+            end = end.getText()
+
+        text = html.find_all('p')
         text = [t.text for t in text]
 
         text = text[1:-1] # removes the webpage border around the body of the case
@@ -75,14 +103,18 @@ class Extract:
 
         return html
 
-    def extract_case(self, html, all):
+    def extract_case(self, html, all, year):
         """
         Extracts all the judgements from the case.
         Returns false if case is not accessible.
         """
         sc = scrape.Scrape()
         raw_html = sc.simple_get(html)
-        text, end = self.extract_body(raw_html)
+
+        if year == "07" or year == "06":
+            text, end = self.extract_body_0607(raw_html)
+        else:
+            text, end = self.extract_body(raw_html)
 
         if text == None:
             return False
@@ -91,7 +123,7 @@ class Extract:
 
         if end is not None:
             html = self.next_html(html)
-            self.extract_case(html, all)
+            self.extract_case(html, all, year)
 
 if __name__ == "__main__":
     ex = Extract()
@@ -141,6 +173,6 @@ if __name__ == "__main__":
     # print("\n\nNEW CASE\n\n")
 
     all = []
-    ex.extract_case("https://publications.parliament.uk/pa/ld200506/ldjudgmt/jd060503/barker-1.htm", all)
+    ex.extract_case("https://publications.parliament.uk/pa/ld200607/ldjudgmt/jd070207/beggs-1.htm", all, "07")
     for a in all:
-        print(a)
+        print(a, "\nNEWLINE\n")

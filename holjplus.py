@@ -1,5 +1,5 @@
 """
-Run to 
+Run to
 Saves the HOLJ+ corpus in
 ../corpus/["09", "08", "07", "06", "05", "04", "03", "02", "01", "00", "99", "98", "97", "96"]
 """
@@ -17,7 +17,7 @@ class Holjplus:
         self.sc = scrape.Scrape()
         self.fm = format.Format()
         self.name = 1 # The cases get a number for a name starting with 1
-        self.allowed = ["09", "08", "07", "06", "05", "04", "03", "02", "01", "00", "99", "98", "97", "96"] # existing folders
+        self.allowed = ["09", "08", "07", "06", "05", "04", "03", "02", "01", "00", "99", "98", "97", "96"]
 
     def main(self):
         """
@@ -40,10 +40,10 @@ class Holjplus:
         """
         case = []
 
-        if self.ex.extract_case(link, case) != False:
+        if self.ex.extract_case(link, case, folder) != False:
             clean = self.fm.pretty_case(case)
             if clean:
-                self.fm.save(clean, str(self.name), folder)
+                self.fm.save(clean, str(self.name), folder, link)
                 self.name += 1
             # prints links with report formating
             else:
@@ -73,7 +73,7 @@ class Holjplus:
         for file in files:
             f = open(file, "r")
             if self.check_duplicates(f) == True:
-                # os.remove(file)
+                os.remove(file)
                 print("Removed: ", file)
 
     def get_filenames(self):
