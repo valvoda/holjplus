@@ -32,7 +32,7 @@ class Holjplus:
             if folder != None:
                 self.new_case(link, folder)
 
-        self.clean_duplicates()
+        self.clean_duplicates() # Sometimes the case is misformated on the website this function catches it
 
     def new_case(self, link, folder):
         """
@@ -94,6 +94,7 @@ class Holjplus:
     def check_duplicates(self, file):
         """
         Checks if a case has two or more judgements from the same judge
+        Some HOLJ are published with mistakes - this removes those cases
         """
         content = file.readlines()
         content = [x.strip() for x in content]
