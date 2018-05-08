@@ -27,6 +27,10 @@ class Merge:
         print("Done")
 
     def merge_corpus(self, newpath, old, max, destination):
+        """
+        creates the new corpus by merging old and new
+        randomly selects the new files so they do not overlapp with old
+        """
 
         new = self.get_corpus(newpath)
         name = 1 #name files from 1 to N
