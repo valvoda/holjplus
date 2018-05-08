@@ -3,6 +3,7 @@
 This project extracts UK House of Lords judgements from 1996 to 2009: https://publications.parliament.uk/pa/ld/ldjudgmt.htm
 
 HTML files are scraped for the text of the cases and cleaned up for the purposes of annotating the majority judgement.
+We select 231 of those cases and merge them with the [HOLJ corpus](https://www.inf.ed.ac.uk/research/isdd/admin/package?download=84) to create the [HOLJ+ corpus](https://github.com/valvoda/holjplus/blob/master/HOLJ%2B.zip).
 
 ## Getting Started
 
