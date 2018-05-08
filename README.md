@@ -7,7 +7,10 @@ We select 231 of those cases and merge them with the [HOLJ corpus](https://www.i
 
 ## Getting Started
 
-To get the full corpus used in our research, simply run holjplus.py
+To get the full corpus used in our research, simply run "holjplus.py", this should get you ~750 House of Lords judgements in plain text format - HOLJ+.
+To get the 300 cases strong corpus we use for majority opinion research we then merge the existing [HOLJ corpus](https://www.inf.ed.ac.uk/research/isdd/admin/package?download=84) with the HOLJ+ corpus using "merge.py".
+
+"merge.py" can also be used to further extend and combine our, or any .txt corpus. See "merge.py" for details.
 
 ### Prerequisites
 
